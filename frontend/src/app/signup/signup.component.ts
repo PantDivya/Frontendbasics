@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as intlTelInput from 'intl-tel-input';
+
 
 @Component({
   selector: 'app-signup',
@@ -19,6 +21,20 @@ export class SignupComponent implements OnInit{
   constructor(private formBuilder: FormBuilder){}
   
   ngOnInit() : void{
+
+    //Country code selector
+    const input = document.querySelector('#phone');
+
+    if(input){
+      intlTelInput(input,{ 
+        initialCountry : 'nepal',
+        separateDialCode : true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+      });
+    }
+  
+
+    // Validation
     this.signup = this.formBuilder.group({
       username : ['', [Validators.required]],
       email : ['', [Validators.required, Validators.email]],
